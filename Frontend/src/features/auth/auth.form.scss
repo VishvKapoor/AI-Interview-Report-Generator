@@ -1,0 +1,135 @@
+
+$bg: #0a0a0f;
+$card-bg: #12141d;
+$card-border: rgba(99, 102, 241, 0.16);
+$input-bg: #1a1d29;
+$input-border: rgba(255, 255, 255, 0.07);
+$accent-light: #6c63ff;
+$accent:        #007bff; 
+$text: #f4f4f6;
+$text-muted: #8b8d98;
+
+main {
+    min-height: 100vh;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: $bg;
+    padding: 1.5rem;
+
+    .form-container {
+        min-width: 350px;
+        width: 100%;
+        max-width: 420px;
+        display: flex;
+        flex-direction: column;
+        gap: 1.75rem;
+        background: $card-bg;
+        border: 1px solid $card-border;
+        border-radius: 1.5rem;
+        padding: 2.5rem 2.25rem;
+        box-shadow: 0 24px 60px rgba(0, 0, 0, 0.45);
+
+        h1 {
+            margin: 0;
+            font-size: 2rem;
+            font-weight: 800;
+            color: $text;
+            letter-spacing: -0.01em;
+        }
+        p {
+            margin: 0;
+            text-align: center;
+            font-size: 0.9rem;
+            color: $text-muted;
+        }
+    }
+
+    form {
+        display: flex;
+        flex-direction: column;
+        gap: 1.25rem;
+    }
+
+    .input-group {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+
+        label {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: $text-muted;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+        }
+
+        input {
+            background: $input-bg;
+            border: 1px solid $input-border;
+            outline: none;
+            color: $text;
+            padding-inline: 1rem;
+            padding-block: 0.85rem;
+            border-radius: 0.75rem;
+            font-size: 0.95rem;
+            transition: border-color 0.15s ease, box-shadow 0.15s ease;
+
+            &::placeholder {
+                color: rgba(255, 255, 255, 0.28);
+            }
+
+            &:hover {
+                border-color: rgba(255, 255, 255, 0.14);
+            }
+
+            &:focus {
+                border-color: $accent-light;
+                box-shadow: 0 0 0 3px rgba(108, 99, 255, 0.18);
+            }
+        }
+    }
+
+    
+    form button {
+        margin-top: 0.25rem;
+        border: none;
+        outline: none;
+        padding-block: 0.9rem;
+        border-radius: 0.75rem;
+        background: linear-gradient(135deg, $accent, $accent-light);
+        color: #fff;
+        font-weight: 700;
+        font-size: 1rem;
+        text-transform: capitalize;
+        cursor: pointer;
+        transition: transform 0.15s ease, box-shadow 0.15s ease, opacity 0.15s ease;
+
+        &:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 10px 28px rgba(73, 58, 238, 0.35);
+        }
+
+        &:active {
+            transform: translateY(0);
+        }
+
+        &:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+    }
+
+    a {
+        color: $accent;
+        font-weight: 600;
+        text-decoration: none;
+
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+}
