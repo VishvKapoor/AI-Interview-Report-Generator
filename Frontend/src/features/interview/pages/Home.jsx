@@ -3,7 +3,7 @@ import { useState,useRef } from 'react'
 import '../style/home.scss'
 import { useInterview } from '../hooks/useinterview'
 import { useNavigate } from 'react-router'
-import { useAuth } from '../../auth/hooks/useauth'
+import { useAuth } from '../../auth/hooks/useAuth'
 const Home = () => {
  
     const { loading, generateReport,reports } = useInterview()
