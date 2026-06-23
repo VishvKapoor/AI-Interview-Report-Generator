@@ -19,26 +19,20 @@ const registerUserController=async(req,res)=>{
             message:"username already exists with this username or email "
         })
     }
-    const hash=await bcrypt.hash(password,10)//this is for hasing of password
+    const hash=await bcrypt.hash(password,10)
     const user=await userModel.create({
         username,
         email,
         password:hash
     })
     const token=jwt.sign(
-        {id:user._id,username:user.username},//data to be included in token 
-        process.env.JWT_SECRET,//secret 
+        {id:user._id,username:user.username},
+        process.env.JWT_SECRET,
         {expiresIn:"1d"}
     )
-    res.cookie("token", token, {
-        httpOnly: true,
-        secure: true,      
-        sameSite: "None",    
-        maxAge: 24 * 60 * 60 * 1000 
-})
-
     res.status(201).json({
         message:"User Registered Sucessfully",
+        token:token,
         user:{
             id:user._id,
             username:user.username,
@@ -46,6 +40,7 @@ const registerUserController=async(req,res)=>{
         }
     })
 }
+
 const loginUserController=async(req,res)=>{
     const{email,password}=req.body;
     const user=await userModel.findOne({email})
@@ -66,41 +61,29 @@ const loginUserController=async(req,res)=>{
         process.env.JWT_SECRET,
         {expiresIn:"1d"}
     )
-    res.cookie("token", token, {
-        httpOnly: true,
-        secure: true,      
-        sameSite: "None",    
-        maxAge: 24 * 60 * 60 * 1000 
-    })
     res.status(200).json({
         message:"User LoggedIn Successfully",
+        token:token,
         user:{
             id:user._id,
             username:user.username,
             email:user.email
-
         }
     })
-
-    
 }
+
 const logoutUserController=async(req,res)=>{
-    const token=req.cookies.token
+    const authHeader=req.headers.authorization
+    const token=authHeader && authHeader.split(' ')[1]
 
     if(token){
         await tokenBlacklistModel.create({token})
     }
-    res.clearCookie("token", {
-        httpOnly: true,
-        secure: true,
-        sameSite: "None"
-    })
     res.status(200).json({
         message:"user logged out successfully"
     })
 }
 
-//getting info of current user through this
 const getMeController=async(req,res)=>{
     const user=await userModel.findById(req.user.id)
 
